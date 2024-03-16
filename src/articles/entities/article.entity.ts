@@ -1,4 +1,5 @@
 import { Article } from "@prisma/client";
+import {UserEntity} from "../../users/entities/user.entity";
 
 export class ArticleEntity implements Article {
     id: number;
@@ -16,4 +17,13 @@ export class ArticleEntity implements Article {
     updatedAt: Date;
 
     authorId: number | null;
+
+    author?: UserEntity;
+
+    constructor({author, ...data}: Partial<ArticleEntity>) {
+        Object.assign(this, data);
+        if(author) {
+            this.author = new UserEntity(author);
+        }
+    }
 }
