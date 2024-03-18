@@ -1,23 +1,33 @@
 import { Article } from "@prisma/client";
 import {UserEntity} from "../../users/entities/user.entity";
+import { ApiProperty } from '@nestjs/swagger';
 
 export class ArticleEntity implements Article {
+    @ApiProperty()
     id: number;
 
+    @ApiProperty()
     title: string;
 
+    @ApiProperty({required: false, nullable: true})
     description: string | null;
 
+    @ApiProperty()
     body: string;
 
+    @ApiProperty()
     published: boolean;
 
+    @ApiProperty()
     createdAt: Date;
 
+    @ApiProperty()
     updatedAt: Date;
 
+    @ApiProperty({required: false, nullable: true})
     authorId: number | null;
 
+    @ApiProperty({required: false, type: UserEntity})
     author?: UserEntity;
 
     constructor({author, ...data}: Partial<ArticleEntity>) {
